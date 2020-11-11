@@ -1,16 +1,14 @@
 package com.shashi.memeshareapp
 
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.text.Html
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.bumptech.glide.Glide
+import androidx.appcompat.widget.Toolbar
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
@@ -28,6 +26,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val toolBar: Toolbar = binding.toolbarMainActivity
+        setSupportActionBar(toolBar)
+
         initViews()
         loadMeme()
     }
@@ -40,7 +41,10 @@ class MainActivity : AppCompatActivity() {
     private fun shareClicked() {
         val intent = Intent(Intent.ACTION_SEND)
         intent.type = "text/plain"
-        intent.putExtra(Intent.EXTRA_TEXT, "Hey, checkout this meme I found on Reddit\n $currentUrl")
+        intent.putExtra(
+            Intent.EXTRA_TEXT,
+            "Hey, checkout this meme I found on Reddit\n $currentUrl"
+        )
         val chooser = Intent.createChooser(intent, "Share this MEME")
         startActivity(chooser)
     }
